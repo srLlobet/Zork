@@ -1,16 +1,17 @@
 #include <iostream>
 #include "world.h"
 
+using namespace std;
 
 int main() {
 
     World world;
     world.setup();
 
-    std::string command;
+    string command;
     while (true) {
-        std::cout << "> ";
-        std::getline(std::cin, command);
+        cout << "> ";
+        getline(cin, command);
 
         if (command == "quit") {
             break;
