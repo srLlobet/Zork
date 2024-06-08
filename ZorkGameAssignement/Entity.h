@@ -29,7 +29,8 @@ protected:
     EntityType type;
     string name;
     string description;
-    list<Entity*> containedEntities;
+    vector<Entity*> containedEntities;
+    static const size_t MAX_ENTITIES = 3;
 };
 
 #endif
