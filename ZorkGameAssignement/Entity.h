@@ -24,6 +24,10 @@ public:
     const string& GetName() const; 
     const string& GetDescription() const; 
 
+    void MoveEntityTo(Entity* entity, std::vector<Entity*>& destination)
+    Entity* FindEntity(const std::string& entityName) const;
+    const vector<Entity*>& GetContainedEntities() const;
+
 
 protected:
     EntityType type;

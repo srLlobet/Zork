@@ -12,15 +12,3 @@ Room::~Room() {
 
 void Room::Update() {
 }
-
-void Room::AddEntity(Entity* entity) {
-    containedEntities.push_back(entity);
-}
-
-void Room::RemoveEntity(Entity* entity) {
-    containedEntities.remove(entity);
-}
-
-const std::vector<Entity*>& Room::GetContainedEntities() const {
-    return containedEntities;
-}

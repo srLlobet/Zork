@@ -14,9 +14,7 @@ public:
 
     void Update() override;
 
-    void AddEntity(Entity* entity);
-    void RemoveEntity(Entity* entity);
-    const vector<Entity*>& GetContainedEntities() const;
+
 
 };
 
