@@ -1,13 +1,15 @@
 #include "Room.h"
 #include <iostream>
 
-Room::Room(const std::string& name, const std::string& description)
+Room::Room(const string& name, const string& description)
     : Entity(Entity::ROOM, name, description) {}
 
 Room::~Room() {
-    for (Entity* entity : containedEntities) {
-        delete entity;
-    }
+
+}
+
+void Room::setItem(unique_ptr<Entity> setupItem) {
+    containedEntities.push_back(move(setupItem));
 }
 
 void Room::Update() {

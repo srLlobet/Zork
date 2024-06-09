@@ -14,20 +14,19 @@ const string& Entity::GetDescription() const {
     return description;
 }
 
-void Entity::MoveEntityTo(Entity* entity, std::vector<Entity*>& destination) {
-    //sets pointer to entity to be removed from actual container
-    auto it = std::remove(containedEntities.begin(), containedEntities.end(), entity);
+void Entity::MoveEntityTo(Entity* entity, vector<Entity*>& destination) {
+    auto it = remove(containedEntities.begin(), containedEntities.end(), entity);
     if (it != containedEntities.end()) {
         destination.push_back(entity);
         containedEntities.erase(it, containedEntities.end());
     }
 }
 
-//returns an entity contained in the entity based on name
-Entity* Entity::FindEntity(const std::string& entityName) const {
-    for (Entity* entity : containedEntities) {
+
+Entity* Entity::FindEntity(const string& entityName) const {
+    for (const auto& entity : containedEntities) {
         if (entity->GetName() == entityName) {
-            return entity;
+            return entity.get();
         }
     }
     return nullptr;

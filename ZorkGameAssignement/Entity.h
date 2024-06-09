@@ -2,7 +2,8 @@
 #define ENTITY_H
 
 #include <string>
-#include <list>
+#include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -24,16 +25,17 @@ public:
     const string& GetName() const; 
     const string& GetDescription() const; 
 
-    void MoveEntityTo(Entity* entity, std::vector<Entity*>& destination)
-    Entity* FindEntity(const std::string& entityName) const;
-    const vector<Entity*>& GetContainedEntities() const;
+    void MoveEntityTo(Entity* entity, vector<Entity*>& destination);
+    Entity* FindEntity(const string& entityName) const;
+
 
 
 protected:
     EntityType type;
     string name;
     string description;
-    vector<Entity*> containedEntities;
+    vector<unique_ptr<Entity>> containedEntities;
+
     static const size_t MAX_ENTITIES = 3;
 };
 

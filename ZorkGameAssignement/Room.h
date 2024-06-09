@@ -2,7 +2,7 @@
 #define ROOM_H
 
 #include "Entity.h"
-#include <vector>
+#include "Item.h"
 
 using namespace std;
 
@@ -12,6 +12,7 @@ public:
     Room(const string& name, const string& description);
     ~Room();
 
+    void setItem(std::unique_ptr<Entity> setupItem);
     void Update() override;
 
 
