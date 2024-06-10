@@ -4,7 +4,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "Entity.h"
 #include "Room.h"
 
 using namespace std;
@@ -19,7 +18,7 @@ public:
     void processCommand(const string& command);
 
 private:
-    vector<unique_ptr<Entity>> entities;
+    vector<shared_ptr<Room>> rooms;
 
     //not a smart pointer because it doesn't own the room
     Room* currentRoom = nullptr;

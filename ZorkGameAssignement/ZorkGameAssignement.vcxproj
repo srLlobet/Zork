@@ -131,6 +131,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Quest.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="World.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="World.h" />
