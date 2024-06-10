@@ -26,8 +26,9 @@ public:
     const string& GetDescription() const; 
 
     void MoveEntityTo(Entity* entity, vector<Entity*>& destination);
+    
     Entity* FindEntity(const string& entityName) const;
-
+    
 
 
 protected:

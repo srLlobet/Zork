@@ -5,6 +5,9 @@
 #include <memory>
 #include <string>
 #include "Entity.h"
+#include "Room.h"
+
+using namespace std;
 
 class World {
 public:
@@ -13,10 +16,13 @@ public:
     ~World() = default;
 
     void setup();
-    void processCommand(const std::string& command);
+    void processCommand(const string& command);
 
 private:
-    std::vector<std::unique_ptr<Entity>> entities;
+    vector<unique_ptr<Entity>> entities;
+
+    //not a smart pointer because it doesn't own the room
+    Room* currentRoom = nullptr;
 };
 
 #endif
