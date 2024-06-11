@@ -18,6 +18,7 @@ void World::setup() {
 
 
     auto shovel = make_unique<Item>("Trusted shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
+    auto copperShovel = make_unique<Item>("Copper shovel", "Your partner got an upgrade! You can now dig through the hardest of terrains.");
     auto bucket = make_unique<Item>("Bucket", "An old metal bucket, it can be filled with liquids");
     auto talisman = make_unique<Item>("Talisman of the depths", "A talisman depicting the symbol of the depths. Part of an accessory collection. Getting all pieces might do something... ");
     auto copper = make_unique<Item>("A copper vein", "Copper, one of the common materials. If you had a pickaxe, you could definetiley mine this. But then again, why would you?");
@@ -27,7 +28,18 @@ void World::setup() {
     auto ring = make_unique<Item>("Ring of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto necklace = make_unique<Item>("Necklace of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto pickaxe = make_unique<Item>("Pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
+    
+    auto statue = make_unique<Creature>("Statue of the Goddess", "A statue depicting the goddess of the depths. It looks like it could come alive at any moment. The goddess blesses those who attempt to reach the depths. Praying before a delve is a good idea.", temple);
+    auto blacksmith = make_unique<Creature>("Dwarven blacksmith", "An old disheveled man of small stature is here. Hammer in hand, he forges piece after piece, with seemingly no purpouse at all. ", forge);
+    
+    auto mainQuest3 = make_unique<Quest>("To the beyond!", "This is it! You've reached the bottom! Whenever you feel ready, plunge into the hole to find what you've been seeking all this time!", nullptr, nullptr);
+    auto mainQuest2 = make_unique<Quest>("Reach for the depths! 2", "It seems like the ground is made of a much harder material. Your trusty old shovel might need an upgrade!", nullptr, move(mainQuest3));
+    auto mainQuest = make_unique<Quest>("Reach for the depths!", "You are finally here. Everyone back home said you were crazy, but none shall stop you any longer! Chase your dreams and delve on the darkest of depths to find out what lies beyond!", nullptr, move(mainQuest2));
 
+    auto smithQuest2 = make_unique<Quest>("A blacksmith's plea", "This old blacksmith has spend eons down here trying to forge one of the godly accessories, but he's missing a crucial ore. Mythril. Find it and bring it to him.", move(ring), nullptr);
+    auto smithQuest = make_unique<Quest>("Forge!", "The blacksmith has agreed to upgrade your shovel if you can give him some copper.", move(copperShovel), move(smithQuest2));
+
+    auto goldQuest = make_unique<Quest>("Golden opportunity", "You've found some gold, enough to make a small fortune outside. Thoughts of leaving and being rich plague your mind, but is that enough to sway your opinion? Your purpouse? You can head out now, but the goddess would appreciate your commitment if you left it all behind", nullptr, nullptr);
 
     surface->setItem(move(shovel));
     temple->setItem(move(talisman));
@@ -62,7 +74,12 @@ void World::setup() {
     rooms.push_back(move(abyss));
     rooms.push_back(move(beyond));
 
-    player = make_shared<Player>("Player", "The main character.", surface);
+     player = make_shared<Player>("Player", "The main character.", surface);
+
+     
+     player->addQuest(move(mainQuest));
+     statue->addQuest(move(goldQuest));
+     blacksmith->addQuest(move(smithQuest));
     
 }
 
@@ -95,6 +112,7 @@ void World::processCommand(const string& command) {
     else if (action == "drop") {
         player->drop(target);
     }
+
     else if (action == "pray") {
         player->pray(target);
     }

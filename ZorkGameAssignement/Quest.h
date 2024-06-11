@@ -10,16 +10,17 @@ class Quest: public Entity
 {
 public:
 
-	Quest(const string& description, unique_ptr<Item> objective, unique_ptr<Quest> nextStep);
+	Quest(const string& name,const string& description, unique_ptr<Item> reward, unique_ptr<Quest> nextStep);
 	~Quest();
 
 	void checkObjective();
 	void clearQuest();
 
+
+
 private:
-	std::unique_ptr<Item> objective;
-	std::unique_ptr<Quest> nextStep;
-	bool isCompleted;
+	unique_ptr<Item> reward;
+	unique_ptr<Quest> nextStep;
 
 };
 

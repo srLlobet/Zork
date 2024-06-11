@@ -23,7 +23,6 @@ public:
 
 	void pray(const string& target);
 	void talk(const string& target);
-
 	void give(const string& target);
 
 
