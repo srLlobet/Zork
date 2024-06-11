@@ -21,11 +21,12 @@ public:
 	void drop(const string& target);
 	void mine(const string& target);
 
-	void pray(const string& target);
-	void talk(const string& target);
+	//void talk(const string& target);
 	void give(const string& target);
 
-
+	shared_ptr<Room> getCurrentRoom() const {
+		return currentRoom;
+	}
 
 
 private:

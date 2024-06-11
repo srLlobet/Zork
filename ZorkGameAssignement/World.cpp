@@ -17,16 +17,16 @@ void World::setup() {
     auto beyond = make_shared<Room>("??? - Depth -1", "yOu sHoUld NoT HAvE GoNE So DeEP");
 
 
-    auto shovel = make_unique<Item>("Trusted shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
-    auto copperShovel = make_unique<Item>("Copper shovel", "Your partner got an upgrade! You can now dig through the hardest of terrains.");
-    auto bucket = make_unique<Item>("Bucket", "An old metal bucket, it can be filled with liquids");
-    auto talisman = make_unique<Item>("Talisman of the depths", "A talisman depicting the symbol of the depths. Part of an accessory collection. Getting all pieces might do something... ");
-    auto copper = make_unique<Item>("A copper vein", "Copper, one of the common materials. If you had a pickaxe, you could definetiley mine this. But then again, why would you?");
-    auto gold = make_unique<Item>("A gold vein", "A shiny material that would definitely fetch a great price on the surface. If you could mine it, you would make a fortune. But is this really the reason you came this far?");
-    auto mythril = make_unique<Item>("A vein of... mythril? ", "This... is definitely mythril, but it shouldn't be real. How does this exist and what is it doing down here?");
-    auto water = make_unique<Item>("A big puddle of water", "It's water. Wet and refreshing");
-    auto ring = make_unique<Item>("Ring of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
-    auto necklace = make_unique<Item>("Necklace of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
+    auto shovel = make_unique<Item>("trusted shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
+    auto copperShovel = make_unique<Item>("copper shovel", "Your partner got an upgrade! You can now dig through the hardest of terrains.");
+    auto bucket = make_unique<Item>("bucket", "An old metal bucket, it can be filled with liquids");
+    auto talisman = make_unique<Item>("talisman", "A talisman depicting the symbol of the depths. Part of an accessory collection. Getting all pieces might do something... ");
+    auto copper = make_unique<Item>("copper vein", "Copper, one of the common materials. If you had a pickaxe, you could definetiley mine this. But then again, why would you?");
+    auto gold = make_unique<Item>("gold vein", "A shiny material that would definitely fetch a great price on the surface. If you could mine it, you would make a fortune. But is this really the reason you came this far?");
+    auto mythril = make_unique<Item>("mythril vein", "This... is definitely mythril, but it shouldn't be real. How does this exist and what is it doing down here?");
+    auto water = make_unique<Item>("puddle of water", "It's water. Wet and refreshing");
+    auto ring = make_unique<Item>("Ring", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
+    auto necklace = make_unique<Item>("Necklace", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto pickaxe = make_unique<Item>("Pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
     
     auto statue = make_unique<Creature>("Statue of the Goddess", "A statue depicting the goddess of the depths. It looks like it could come alive at any moment. The goddess blesses those who attempt to reach the depths. Praying before a delve is a good idea.", temple);
@@ -65,17 +65,9 @@ void World::setup() {
     beyond->setAbove(abyss);
 
 
-    rooms.push_back(move(surface));
-    rooms.push_back(move(temple));
-    rooms.push_back(move(cavern));
-    rooms.push_back(move(forge));
-    rooms.push_back(move(depths));
-    rooms.push_back(move(magma));
-    rooms.push_back(move(abyss));
-    rooms.push_back(move(beyond));
+    player = make_shared<Player>("Player", "The main character.", surface);
 
-     player = make_shared<Player>("Player", "The main character.", surface);
-
+ 
      
      player->addQuest(move(mainQuest));
      statue->addQuest(move(goldQuest));
@@ -113,7 +105,7 @@ void World::processCommand(const string& command) {
         player->drop(target);
     }
 
-    else if (action == "pray") {
+    /*else if (action == "pray") {
         player->pray(target);
     }
     else if (action == "talk") {
@@ -125,6 +117,7 @@ void World::processCommand(const string& command) {
     else if (action == "mine") {
         player->mine(target);
     }
+    */
     else {
         std::cout << "Unknown command: " << action << "\n";
     }

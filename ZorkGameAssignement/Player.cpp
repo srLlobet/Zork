@@ -2,8 +2,15 @@
 #include "Player.h"
 
 Player::Player(const string& name, const string& description, shared_ptr<Room> room)
-    : Creature(name, description, room), currentRoom(room) {}
-
+    : Creature(name, description, room){
+    if (room) {
+        currentRoom = room;
+        look("");
+    }
+    else {
+        cout << "Error: Room pointer is null!" << std::endl;
+    }
+}
 Player::~Player() {}
 
 void Player::look(const string& target) {
@@ -28,18 +35,21 @@ void Player::look(const string& target) {
 }
 
 void Player::dig() {
-    currentRoom = currentRoom->getBelow();
-
-    cout << currentRoom->getName() << "\n";
-    cout << currentRoom->getDescription() << "\n";
-    for (const auto& entity : currentRoom->getContainedEntities()) {
-        cout << "A " << entity->getName() << " is here.\n";
+    if (currentRoom->getName() == "The Forge - Depth 300m"  && !findEntity("copper shovel")) {
+        cout << "The ground is too tough for you to dig deeper. You should find a way to upgrade your shovel.";
+    }
+    else {
+        currentRoom = currentRoom->getBelow();
+        cout << currentRoom->getName() << "\n";
+        cout << currentRoom->getDescription() << "\n";
+        for (const auto& entity : currentRoom->getContainedEntities()) {
+            cout << "A " << entity->getName() << " is here.\n";
+        }
     }
 }
 
 void Player::climb() {
     currentRoom = currentRoom->getAbove();
-
     cout << currentRoom->getName() << "\n";
     cout << currentRoom->getDescription() << "\n";
     for (const auto& entity : currentRoom->getContainedEntities()) {
@@ -91,7 +101,5 @@ void Player::mine(const string& target) {
         cout << "You don't have a pickaxe to mine the ore";
     }
 }
-
-
 
 

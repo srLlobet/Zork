@@ -1,6 +1,6 @@
 #include "Creature.h"
 
-Creature::Creature(const string& name, const string& description, shared_ptr<Room> room)
+Creature::Creature(const string& name, const string& description, shared_ptr<Room> room) 
     : Entity(Entity::CREATURE, name, description), currentRoom(room) {}
 
 Creature::~Creature() {}

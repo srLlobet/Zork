@@ -19,7 +19,6 @@ public:
     void processCommand(const string& command);
 
 private:
-    vector<shared_ptr<Room>> rooms;
     shared_ptr<Player> player = nullptr; // Declare player as a member variable
 
 };
