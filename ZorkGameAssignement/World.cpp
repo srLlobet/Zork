@@ -26,6 +26,8 @@ void World::setup() {
     auto water = make_unique<Item>("A big puddle of water", "It's water. Wet and refreshing");
     auto ring = make_unique<Item>("Ring of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto necklace = make_unique<Item>("Necklace of the depths", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
+    auto pickaxe = make_unique<Item>("Pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
+
 
     surface->setItem(move(shovel));
     temple->setItem(move(talisman));

@@ -9,6 +9,7 @@ int main() {
     world.setup();
 
     string command;
+
     while (true) {
         cout << "> ";
         getline(cin, command);

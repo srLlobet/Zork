@@ -18,12 +18,14 @@ public:
 	void look(const string& target);
 	void inventory();
 	void take(const string& target);
-
 	void drop(const string& target);
+	void mine(const string& target);
+
 	void pray(const string& target);
 	void talk(const string& target);
+
 	void give(const string& target);
-	void mine(const string& target);
+
 
 
 

@@ -64,3 +64,32 @@ void Player::take(const string& target) {
     }
 }
 
+void Player::drop(const string& target) {
+    auto it = std::find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
+        return item->getName() == target;
+        });
+
+    if (it != containedEntities.end()) {
+        std::unique_ptr<Entity> droppedItem = std::move(*it);
+        containedEntities.erase(it); 
+        currentRoom->setItem(move(droppedItem)); 
+        std::cout << "You drop " << target << " in the room.\n";
+    }
+    else {
+        std::cout << "You don't have a " << target << " to drop.\n";
+    }
+}
+
+void Player::mine(const string& target) {
+    auto it = std::find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
+        return item->getName() == "pickaxe";
+        });
+    if (it != containedEntities.end()) {
+        take(target);
+    }
+    else {
+        cout << "You don't have a pickaxe to mine the ore";
+    }
+}
+
+
