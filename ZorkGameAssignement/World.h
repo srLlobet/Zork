@@ -19,9 +19,9 @@ public:
 
 private:
     vector<shared_ptr<Room>> rooms;
+    shared_ptr<Player> player; // Declare player as a member variable
 
-    //not a smart pointer because it doesn't own the room
-    Room* currentRoom = nullptr;
+    // Other member variables and functions...
 };
 
 #endif

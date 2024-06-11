@@ -11,7 +11,7 @@ public:
     ~Room();
 
     void setItem(unique_ptr<Entity> setupItem);
-    void Update() override;
+    void update() override;
 
     const vector<unique_ptr<Entity>>& getContainedEntities() const;
 

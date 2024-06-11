@@ -9,10 +9,10 @@ Item::~Item() {
 }
 
 
-void Item::Update() {
+void Item::update() {
 }
 
-void Item::Interact(Entity& source)
+void Item::interact(Entity& source)
 {
 
 }

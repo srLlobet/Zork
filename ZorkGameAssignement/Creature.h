@@ -12,13 +12,12 @@ using namespace std;
 class Creature : public Entity {
 public:
 
-    Creature(const string& name, const string& description, Room* room);
+    Creature(const string& name, const string& description, shared_ptr<Room> room);
     ~Creature();
 
     void addQuest(unique_ptr<Quest> quest);
 
-    void Update() override;
-    void Interact(Entity& source);
+    void update() override;
 
 private:
     vector<unique_ptr<Quest>>  questList;

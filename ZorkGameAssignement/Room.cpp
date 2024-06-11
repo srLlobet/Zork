@@ -33,5 +33,5 @@ shared_ptr<Room> Room::getBelow() const {
     return below;
 }
 
-void Room::Update() {
+void Room::update() {
 }

@@ -6,15 +6,15 @@ Entity::Entity(EntityType type, const string& name, const string& description)
 Entity::~Entity() {}
 
 
-const string& Entity::GetName() const {
+const string& Entity::getName() const {
     return name;
 }
 
-const string& Entity::GetDescription() const {
+const string& Entity::getDescription() const {
     return description;
 }
 
-void MoveEntity(unique_ptr<Entity>& entity, vector<unique_ptr<Entity>>& source, vector<unique_ptr<Entity>>& destination) {
+void moveEntity(unique_ptr<Entity>& entity, vector<unique_ptr<Entity>>& source, vector<unique_ptr<Entity>>& destination) {
     auto it = find_if(source.begin(), source.end(), [&entity](const unique_ptr<Entity>& ptr) {
         return ptr.get() == entity.get();
         });
@@ -25,9 +25,9 @@ void MoveEntity(unique_ptr<Entity>& entity, vector<unique_ptr<Entity>>& source, 
     }
 }
 
-Entity* Entity::FindEntity(const string& entityName) const {
+Entity* Entity::findEntity(const string& entityName) const {
     for (const auto& entity : containedEntities) {
-        if (entity->GetName() == entityName) {
+        if (entity->getName() == entityName) {
             return entity.get(); // Unsafe, returns raw pointer
         }
     }

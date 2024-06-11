@@ -1,6 +1,7 @@
 #include "World.h"
 #include "Room.h"
 #include "Item.h"
+#include "player.h"
 #include <iostream>
 #include <sstream>
 
@@ -49,6 +50,7 @@ void World::setup() {
     abyss->setBelow(beyond);
     beyond->setAbove(abyss);
 
+
     rooms.push_back(move(surface));
     rooms.push_back(move(temple));
     rooms.push_back(move(cavern));
@@ -57,9 +59,9 @@ void World::setup() {
     rooms.push_back(move(magma));
     rooms.push_back(move(abyss));
     rooms.push_back(move(beyond));
-    
 
-    currentRoom = surface.get(); // Set the starting room
+    player = make_shared<Player>("Player", "The main character.", surface);
+    
 }
 
 void World::processCommand(const string& command) {
@@ -72,33 +74,40 @@ void World::processCommand(const string& command) {
     iss >> action;
     getline(iss >> ws, target);
 
-    if (action == "look") {
-        if (target.empty()) {
-            
-            cout << currentRoom->GetName() << "\n";
-            cout << currentRoom->GetDescription() << "\n";
-            // List items in the room
-            for (const auto& entity : currentRoom->getContainedEntities()) {
-                cout << "A " << entity->GetName() << " is here.\n";
-            }
-        }
-        else {
-            // Look for a specific item in the current room
-            Entity* entity = currentRoom->FindEntity(target);
-            if (entity) {
-                std::cout << "You see: " << entity->GetDescription() << "\n";
-            }
-            else {
-                std::cout << "There is no " << target << " here.\n";
-            }
-        }
+
+    if (action == "look" || action == "l") {
+        player->look(target);
     }
-
-    if (action == "inventory") {
-        if (target.empty()) {
-
-        }
+    else if (action == "inventory") {
+        player->inventory();
     }
-
-
+    else if (action == "dig") {
+        player->dig(target);
+    }
+    else if (action == "climb") {
+        player->climb(target);
+    }
+    else if (action == "take") {
+        player->take(target);
+    }
+    else if (action == "drop") {
+        player->drop(target);
+    }
+    else if (action == "pray") {
+        player->pray(target);
+    }
+    else if (action == "talk") {
+        player->talk(target);
+    }
+    else if (action == "give") {
+        player->give(target);
+    }
+    else if (action == "mine") {
+        player->mine(target);
+    }
+    else {
+        std::cout << "Unknown command: " << action << "\n";
+    }
 }
+
+
