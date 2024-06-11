@@ -17,12 +17,12 @@ void Player::look(const string& target) {
     }
     else {
         // Look for a specific item in the current room
-        Entity* entity = currentRoom->findEntity(args[0]);
+        Entity* entity = currentRoom->findEntity(target);
         if (entity) {
             cout << "You see: " << entity->getDescription() << "\n";
         }
         else {
-            cout << "There is no " << args[0] << " here.\n";
+            cout << "There is no " << target << " here.\n";
         }
     }
 }

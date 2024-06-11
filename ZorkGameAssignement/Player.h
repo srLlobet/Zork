@@ -13,19 +13,18 @@ public:
     ~Player();
 
 
-	bool dig(const string& target);
-	bool climb(const string& target);
+	bool dig();
+	bool climb();
 	void look(const string& target);
 	bool take(const string& target);
 	bool drop(const string& target);
-	void inventory() const;
+	void inventory();
 	bool pray(const string& target);
 	bool talk(const string& target);
 	bool give(const string& target);
 	bool mine(const string& target);
 
 
-    void update() override;
 
 private:
 	shared_ptr<Room> currentRoom;

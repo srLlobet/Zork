@@ -9,9 +9,6 @@ Item::~Item() {
 }
 
 
-void Item::update() {
-}
-
 void Item::interact(Entity& source)
 {
 

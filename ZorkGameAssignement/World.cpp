@@ -78,14 +78,14 @@ void World::processCommand(const string& command) {
     if (action == "look" || action == "l") {
         player->look(target);
     }
-    else if (action == "inventory") {
+    else if (action == "inventory" || action == "i") {
         player->inventory();
     }
     else if (action == "dig") {
-        player->dig(target);
+        player->dig();
     }
     else if (action == "climb") {
-        player->climb(target);
+        player->climb();
     }
     else if (action == "take") {
         player->take(target);

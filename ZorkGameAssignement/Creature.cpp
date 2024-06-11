@@ -9,9 +9,3 @@ void Creature::addQuest(unique_ptr<Quest> quest) {
     questList.push_back(move(quest));
 }
 
-void Creature::update() {
-    // Update logic for the creature
-    for (auto& quest : questList) {
-        quest->checkObjective();
-    }
-}

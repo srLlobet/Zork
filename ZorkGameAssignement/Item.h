@@ -11,7 +11,6 @@ public:
     Item(const string& name, const string& description);
     ~Item();
 
-    void update() override;
 
     void interact(Entity& source);
 

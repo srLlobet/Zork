@@ -17,7 +17,7 @@ public:
 
     void addQuest(unique_ptr<Quest> quest);
 
-    void update() override;
+
 
 private:
     vector<unique_ptr<Quest>>  questList;

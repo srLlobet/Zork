@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include "Room.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -19,9 +20,8 @@ public:
 
 private:
     vector<shared_ptr<Room>> rooms;
-    shared_ptr<Player> player; // Declare player as a member variable
+    shared_ptr<Player> player = nullptr; // Declare player as a member variable
 
-    // Other member variables and functions...
 };
 
 #endif

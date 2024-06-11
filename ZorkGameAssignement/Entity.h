@@ -20,7 +20,7 @@ public:
     Entity(EntityType type, const string& name, const string& description);
 
     virtual ~Entity();
-    virtual void update() = 0;
+
 
     const string& getName() const; 
     const string& getDescription() const; 
