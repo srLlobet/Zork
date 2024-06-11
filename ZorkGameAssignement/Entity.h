@@ -24,8 +24,6 @@ public:
 
     const string& getName() const; 
     const string& getDescription() const; 
-
-    void moveEntityTo(Entity* entity, vector<Entity*>& destination);
     
     Entity* findEntity(const string& entityName) const;
     

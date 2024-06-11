@@ -26,3 +26,41 @@ void Player::look(const string& target) {
         }
     }
 }
+
+void Player::dig() {
+    currentRoom = currentRoom->getBelow();
+
+    cout << currentRoom->getName() << "\n";
+    cout << currentRoom->getDescription() << "\n";
+    for (const auto& entity : currentRoom->getContainedEntities()) {
+        cout << "A " << entity->getName() << " is here.\n";
+    }
+}
+
+void Player::climb() {
+    currentRoom = currentRoom->getAbove();
+
+    cout << currentRoom->getName() << "\n";
+    cout << currentRoom->getDescription() << "\n";
+    for (const auto& entity : currentRoom->getContainedEntities()) {
+        cout << "A " << entity->getName() << " is here.\n";
+    }
+}
+
+void Player::inventory() {
+    for (const auto& entity : containedEntities) {
+        cout << "A " << entity->getName() << "\n";
+    }
+}
+
+void Player::take(const string& target) {
+    unique_ptr<Entity> item = currentRoom->takeItem(target);
+    if (item) {
+        cout << "You take " << item->getName() << "\n";
+        containedEntities.push_back(move(item));
+    }
+    else {
+        cout << "There is no " << target << " here.\n";
+    }
+}
+

@@ -11,6 +11,7 @@ public:
     ~Room();
 
     void setItem(unique_ptr<Entity> setupItem);
+    unique_ptr<Entity> takeItem(const string& itemName);
 
 
     const vector<unique_ptr<Entity>>& getContainedEntities() const;

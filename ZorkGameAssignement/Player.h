@@ -13,16 +13,17 @@ public:
     ~Player();
 
 
-	bool dig();
-	bool climb();
+	void dig();
+	void climb();
 	void look(const string& target);
-	bool take(const string& target);
-	bool drop(const string& target);
 	void inventory();
-	bool pray(const string& target);
-	bool talk(const string& target);
-	bool give(const string& target);
-	bool mine(const string& target);
+	void take(const string& target);
+
+	void drop(const string& target);
+	void pray(const string& target);
+	void talk(const string& target);
+	void give(const string& target);
+	void mine(const string& target);
 
 
 
