@@ -53,6 +53,20 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
   
 Happy adventuring!
 
+## Personal notes
+
+It has really been a while since i've had to code anything in C++, so it has been quite the challenge, specially at this level. My entire experience with the language has been pretty sparse through college. But regardless of the result (even though i hope it is positive) it has been a great experience.
+
+One of the most challenging things was learning about modern C++. When i first saw the example, it sounded pretty familiar. Pointers, references, etc. like college. But three days into the exam it ocurred to me to google modern practices in c++. And well. Smart pointers were a thing. So I changed everything up to startard and began coding.
+
+The special features are the locked door (kind of) that is locked behind the reward of a quest. And well, the Quests! Big special feature. The great thing about them is how they allowed me to introduce items that were not already in the rooms seemlessly through the rewards. As well as the multiple endings that were very fun to think about and code. 
+
+I'll have to admit, the game is not perfect by all means, there is plenty of hard-coded stuff. But I think the end product is playable, fun and shows at least great effort.
+
+Thank you for the experience,
+
+Joan Llobet Ruiz
+
 ## Walkthrough
 
 We'll begin by taking the shovel, then going down one level.
