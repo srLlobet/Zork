@@ -7,6 +7,8 @@
 
 
 void World::setup() {
+
+    //rooms are shared pointers due to being pointed at by the player and the creatures
     auto surface = make_shared<Room>("Arid wastelands - Depth 0m", "An arid wasteland spreads as far as you can see in any direction. This is it. This is where it begins. Your calling is upon you. Whenever you feel ready, you just need to dig deeper.");
     auto temple = make_shared<Room>("Temple of the Depths - Depth 20m", "A tiny cavern illuminated by torches stands before you. There is a stone statue of a woman sitting in the center of the room. It's the goddess of the depths. You feel compelled to pray.");
     auto cavern = make_shared<Room>("Moist Cavern - Depth 100m", "The admosphere is very humid. A thin white mist spreads around in all directions, and water droplets streak down the countless stalagmites of the cave. The walls are covered in moss and there is a thick smell of wet soil");
@@ -45,7 +47,8 @@ void World::setup() {
     forge->setItem(move(pickaxe));
     magma->setItem(move(gold));
     abyss->setItem(move(mythril));
-    
+
+    //setting pointers to other rooms 
     surface->setBelow(temple);
     temple->setAbove(surface);
     temple->setBelow(cavern);
