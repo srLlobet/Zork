@@ -17,6 +17,7 @@ public:
 
     void setup();
     void processCommand(const string& command);
+    bool checkEnding();
 
 private:
     shared_ptr<Player> player = nullptr; // Declare player as a member variable

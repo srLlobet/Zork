@@ -35,8 +35,13 @@ void Player::look(const string& target) {
     }
 }
 
+bool Player::ending()
+{
+    return gameOver;
+}
+
 void Player::dig() {
-    if (currentRoom->getName() == "Arid wastelands - Depth 0m" && !findEntity("shovel")) {
+    if (!findEntity("shovel") && !findEntity("copper shovel")) {
         cout << "Can't dig down without your trusted shovel!";
     }
     else {
@@ -51,12 +56,27 @@ void Player::dig() {
                     (*it)->clearQuest();
                 }
         }
-        else {
-            currentRoom = currentRoom->getBelow();
-            cout << currentRoom->getName() << "\n";
-            cout << currentRoom->getDescription() << "\n";
-            for (const auto& entity : currentRoom->getContainedEntities()) {
-                cout << "A " << entity->getName() << " is here.\n";
+        else if (currentRoom->getName() == "??? - Depth -1" && (!findEntity("talisman") || !findEntity("ring") || !findEntity("necklace"))) {
+                cout << currentRoom->getName() << "\n";
+                cout << currentRoom->getDescription() << "\n";
+                cout << "You feel dizzy. You were not prepared. Your mind struggles to comprehend the shapes, colors and sounds that sorround you. You feel a wave of sleep coming. You close your eyes. You die. PRESS ENTER. \n";
+                cin.ignore();
+                gameOver = true;
+            }
+            else if (currentRoom->getName() == "??? - Depth -1" && (findEntity("talisman") && findEntity("ring") && findEntity("necklace"))) {
+                cout << currentRoom->getName() << "\n";
+                cout << currentRoom->getDescription() << "\n";
+                cout << "The voice rips through your mind like a pancake, but the accessories you wear shine with the power of a thousand suns. Breaking through the darkness that surronds you, letting you see what lies beyond\n";
+                cout << "You find a PC with a League of Legends main menu open, the mouse hovering the play button. Of course... PRESS ENTER";
+                cin.ignore();
+                gameOver = true;
+            }
+            else {    
+                currentRoom = currentRoom->getBelow();
+                cout << currentRoom->getName() << "\n";
+                cout << currentRoom->getDescription() << "\n";
+                for (const auto& entity : currentRoom->getContainedEntities()) {
+                    cout << "A " << entity->getName() << " is here.\n";
             }
         }
     }
@@ -68,6 +88,11 @@ void Player::climb() {
     cout << currentRoom->getDescription() << "\n";
     for (const auto& entity : currentRoom->getContainedEntities()) {
         cout << "A " << entity->getName() << " is here.\n";
+    }
+    if (findEntity("gold vein") && currentRoom->getName() == "Arid wastelands - Depth 0m") {
+        cout << "You have chosen to escape with a fortune. A wise choice, some might say. But you'll never now what lies beyond. PRESS ENTER";
+        cin.ignore();
+        gameOver = true;
     }
 }
 
@@ -107,8 +132,17 @@ void Player::drop(const string& target) {
     if (it != containedEntities.end()) {
         unique_ptr<Entity> droppedItem = move(*it);
         containedEntities.erase(it); 
-        currentRoom->setItem(move(droppedItem)); 
-        cout << "You drop " << target << " in the room.\n";
+        currentRoom->setItem(move(droppedItem));
+        if (currentRoom->getName() == "Temple of the Depths - Depth 20m" && target == "gold vein") {
+            cout << "You drop the gold beneath the statue's feet. For a moment, you feel like the goddess smiles at you fondly. \n";
+            cout << "Quest updated! \n";
+            cout << "You got a ring!";
+            containedEntities.push_back(questList[2]->takeReward());
+        }
+        else {
+            cout << "You drop " << target << " in the room.\n";
+        }
+        
     }
     else {
         cout << "You don't have a " << target << " to drop.\n";
@@ -124,6 +158,10 @@ void Player::mine(const string& target) {
         if (item) {
             cout << "You mine out the " << item->getName() << "\n";
             containedEntities.push_back(move(item));
+            if (target == "gold vein") {
+                cout << "you found some gold! \n";
+                cout << "new quest recieved! \n";
+            }
         }
     }
 }
@@ -131,22 +169,22 @@ void Player::mine(const string& target) {
 void Player::printquest(const string& target) {
     if (target.empty()) {
         cout << "Quest: " << questList[0]->getName() << endl;
-        cout << "Description: " << questList[0]->getDescription() << endl;
+        cout << "\n Description: " << questList[0]->getDescription() << endl;
 
         auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
             return item->getName() == "pickaxe";
             });
         if (it != containedEntities.end()) {
-            cout << "Quest: " << questList[1]->getName() << endl;
-            cout << "Description: " << questList[1]->getDescription() << endl;
+            cout << "\n Quest: " << questList[1]->getName() << endl;
+            cout << "\n Description: " << questList[1]->getDescription() << endl;
         }
 
         auto itt = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
             return item->getName() == "gold vein";
             });
         if (itt != containedEntities.end()) {
-            cout << "Quest: " << questList[2]->getName() << endl;
-            cout << "Description: " << questList[2]->getDescription() << endl;
+            cout << " \nQuest: " << questList[2]->getName() << endl;
+            cout << " \n Description: " << questList[2]->getDescription() << endl;
         }
         
     }
@@ -155,14 +193,14 @@ void Player::printquest(const string& target) {
 void Player::talk(const string& target) {
     if (target == "blacksmith" && (currentRoom->getName() == "The Forge - Depth 300m")) {
         if (blacksmithTalkCount == 0) {
-            cout << "Ah, another madman comes through. Know that your quest shall end in harrowing death and despair, like the others who have come before you. Me? I am but a humble blacksmith, hammering my sorrow away.";
-            cout << "You've found yourself at an impasse, huh? If you must continue your quest regardless, at least do it with a fair tool. Bring me some copper, and I'll get that shovel of yours up to the task";
-            cout << "Take this pickaxe to get the copper";
-            cout << "You've received a quest from the blacksmith!";
+            cout << "Ah, another madman comes through. Know that your quest shall end in harrowing death and despair, like the others who have come before you. Me? I am but a humble blacksmith, hammering my sorrow away. \n";
+            cout << "You've found yourself at an impasse, huh? If you must continue your quest regardless, at least do it with a fair tool. Bring me some copper, and I'll get that shovel of yours up to the task \n";
+            cout << "Take this pickaxe to get the copper \n";
+            cout << "You've received a quest from the blacksmith! \n";
             blacksmithTalkCount++;
 
         }
-        else {
+        else if(blacksmithTalkCount >= 1 && blacksmithTalkCount < 90) {
             auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const unique_ptr<Entity>& item) {
                 return item->getName() == "shovel";
                 });
@@ -170,10 +208,28 @@ void Player::talk(const string& target) {
                 return item2->getName() == "copper vein";
                 });
             if (it != containedEntities.end() || itt != containedEntities.end()) {
-                cout << "Just find me some copper and drop it ar your shovel here.";
+                cout << "Just find me some copper and drop it and your shovel here.";
             }
             else {
-                cout << "great! Here ya go!";
+                cout << "great! Here ya go! \n";
+                cout << "Your got a copper shovel! \n";
+                containedEntities.push_back(questList[1]->takeReward());
+                cout << "maybe you can do me another favor, i'll give ya something worthwhile. \n";
+                cout << "quest updated! \n";
+                questList[1]->clearQuest();
+                questList[0]->clearQuest();
+                blacksmithTalkCount = blacksmithTalkCount + 99;
+            }
+        } else{
+            auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const unique_ptr<Entity>& item) {
+                return item->getName() == "mythril";
+                });
+            if (it != containedEntities.end() || it != containedEntities.end()) {
+                cout << "Bring me some mythril, please. \n";
+            }
+            else {
+                cout << "In-incredible! What great metal! Where did you even find this!? \n";
+                cout << "My dreams of creating a masterpiece have finally come true. Here, take this. It's a necklace of the deep, if you have the three acessories, you will survive what lies beyond. \n";
                 containedEntities.push_back(questList[1]->takeReward());
             }
         }

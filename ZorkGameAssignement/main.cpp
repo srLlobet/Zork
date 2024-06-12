@@ -19,6 +19,10 @@ int main() {
         }
 
         world.processCommand(command);
+
+        if (world.checkEnding() == true) {
+            break;
+        }
     }
 
     return 0;

@@ -15,7 +15,6 @@ unique_ptr<Entity> Quest::takeReward() {
 
 void Quest::clearQuest() {
     if (nextStep) {
-        cout << "quest updated";
         name = nextStep->name;
         description = nextStep->description;
         reward = move(nextStep->reward);

@@ -19,12 +19,10 @@ void World::setup() {
 
     auto shovel = make_unique<Item>("shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
     auto copperShovel = make_unique<Item>("copper shovel", "Your partner got an upgrade! You can now dig through the hardest of terrains.");
-    auto bucket = make_unique<Item>("bucket", "An old metal bucket, it can be filled with liquids");
     auto talisman = make_unique<Item>("talisman", "A talisman depicting the symbol of the depths. Part of an accessory collection. Getting all pieces might do something... ");
     auto copper = make_unique<Item>("copper vein", "Copper, one of the common materials. If you had a pickaxe, you could definetiley mine this. But then again, why would you?");
     auto gold = make_unique<Item>("gold vein", "A shiny material that would definitely fetch a great price on the surface. If you could mine it, you would make a fortune. But is this really the reason you came this far?");
     auto mythril = make_unique<Item>("mythril vein", "This... is definitely mythril, but it shouldn't be real. How does this exist and what is it doing down here?");
-    auto water = make_unique<Item>("puddle of water", "It's water. Wet and refreshing");
     auto ring = make_unique<Item>("ring", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto necklace = make_unique<Item>("necklace", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
     auto pickaxe = make_unique<Item>("pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
@@ -36,16 +34,14 @@ void World::setup() {
     auto mainQuest2 = make_unique<Quest>("Reach for the depths! 2", "It seems like the ground is made of a much harder material. Your trusty old shovel might need an upgrade!", nullptr, move(mainQuest3));
     auto mainQuest = make_unique<Quest>("Reach for the depths!", "You are finally here. Everyone back home said you were crazy, but none shall stop you any longer! Chase your dreams and delve through the darkest of depths to find out what lies beyond!", nullptr, move(mainQuest2));
 
-    auto smithQuest2 = make_unique<Quest>("A blacksmith's plea", "This old blacksmith has spend eons down here trying to forge one of the godly accessories, but he's missing a crucial ore. Mythril. Find it and bring it to him.", move(ring), nullptr);
+    auto smithQuest2 = make_unique<Quest>("A blacksmith's plea", "This old blacksmith has spend eons down here trying to forge one of the godly accessories, but he's missing a crucial ore. Mythril. Find it and bring it to him.", move(necklace), nullptr);
     auto smithQuest = make_unique<Quest>("Forge!", "The blacksmith has agreed to upgrade your shovel if you can give him some copper.", move(copperShovel), move(smithQuest2));
 
-    auto goldQuest = make_unique<Quest>("Golden opportunity", "You've found some gold, enough to make a small fortune outside. Thoughts of leaving and being rich plague your mind, but is that enough to sway your opinion? Your purpouse? You can head out now, but the goddess would appreciate your commitment if you left it all behind", nullptr, nullptr);
+    auto goldQuest = make_unique<Quest>("Golden opportunity", "You've found some gold, enough to make a small fortune outside. Thoughts of leaving and being rich plague your mind, but is that enough to sway your opinion? Your purpouse? You can head out now, but the goddess would appreciate your commitment if you left it all behind", move(ring), nullptr);
 
     surface->setItem(move(shovel));
     temple->setItem(move(talisman));
     cavern->setItem(move(copper));
-    cavern->setItem(move(water));
-    forge->setItem(move(bucket));
     forge->setItem(move(pickaxe));
     magma->setItem(move(gold));
     abyss->setItem(move(mythril));
@@ -120,6 +116,12 @@ void World::processCommand(const string& command) {
     else {
         std::cout << "Unknown command: " << action << "\n";
     }
+}
+
+bool World::checkEnding()
+{
+    bool check = player->ending();
+    return check;
 }
 
 

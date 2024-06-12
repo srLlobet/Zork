@@ -8,11 +8,13 @@ using namespace std;
 
 class Player : public Creature{
 public:
+	
+	bool gameOver = false;
 
     Player(const string& name, const string& description, shared_ptr<Room> room);
     ~Player();
 
-
+	bool ending();
 	void dig();
 	void climb();
 	void look(const string& target);
@@ -29,6 +31,7 @@ public:
 
 
 private:
+	
 	int blacksmithTalkCount = 0;
 	shared_ptr<Room> currentRoom;
 };
