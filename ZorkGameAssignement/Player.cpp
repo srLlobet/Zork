@@ -78,14 +78,25 @@ void Player::inventory() {
 }
 
 void Player::take(const string& target) {
-    unique_ptr<Entity> item = currentRoom->takeItem(target);
-    if (item) {
-        cout << "You take " << item->getName() << "\n";
-        containedEntities.push_back(move(item));
+    if (target == "pickaxe" && blacksmithTalkCount == 0) {
+        cout << "You don't have permission to take this item. Talk to the blacksmith first.";
     }
     else {
-        cout << "There is no " << target << " here.\n";
+        if (target.find("vein") != string::npos) {
+            cout << "you can't take this! It's embedded in the wall!";
+        }
+        else {
+            unique_ptr<Entity> item = currentRoom->takeItem(target);
+            if (item) {
+                cout << "You take " << item->getName() << "\n";
+                containedEntities.push_back(move(item));
+            }
+            else {
+                cout << "There is no " << target << " here.\n";
+            }
+        }
     }
+  
 }
 
 void Player::drop(const string& target) {
@@ -105,14 +116,15 @@ void Player::drop(const string& target) {
 }
 
 void Player::mine(const string& target) {
-    auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
-        return item->getName() == "pickaxe";
-        });
-    if (it != containedEntities.end()) {
-        take(target);
+    if(!findEntity("pickaxe") && target.find("vein")) {
+        cout << "You don't have a pickaxe to mine the ore";
     }
     else {
-        cout << "You don't have a pickaxe to mine the ore";
+        unique_ptr<Entity> item = currentRoom->takeItem(target);
+        if (item) {
+            cout << "You mine out the " << item->getName() << "\n";
+            containedEntities.push_back(move(item));
+        }
     }
 }
 
@@ -120,20 +132,22 @@ void Player::printquest(const string& target) {
     if (target.empty()) {
         cout << "Quest: " << questList[0]->getName() << endl;
         cout << "Description: " << questList[0]->getDescription() << endl;
+
         auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
-             return item->getName() == "pickaxe";
-             });
-         if (it != containedEntities.end()) {
+            return item->getName() == "pickaxe";
+            });
+        if (it != containedEntities.end()) {
             cout << "Quest: " << questList[1]->getName() << endl;
             cout << "Description: " << questList[1]->getDescription() << endl;
-         }
-         auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
-             return item->getName() == "gold vein";
-             });
-         if (it != containedEntities.end()) {
-             cout << "Quest: " << questList[2]->getName() << endl;
-             cout << "Description: " << questList[2]->getDescription() << endl;
-         }
+        }
+
+        auto itt = find_if(containedEntities.begin(), containedEntities.end(), [&](const std::unique_ptr<Entity>& item) {
+            return item->getName() == "gold vein";
+            });
+        if (itt != containedEntities.end()) {
+            cout << "Quest: " << questList[2]->getName() << endl;
+            cout << "Description: " << questList[2]->getDescription() << endl;
+        }
         
     }
 }
@@ -149,7 +163,19 @@ void Player::talk(const string& target) {
 
         }
         else {
-
+            auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const unique_ptr<Entity>& item) {
+                return item->getName() == "shovel";
+                });
+            auto itt = find_if(containedEntities.begin(), containedEntities.end(), [&](const unique_ptr<Entity>& item2) {
+                return item2->getName() == "copper vein";
+                });
+            if (it != containedEntities.end() || itt != containedEntities.end()) {
+                cout << "Just find me some copper and drop it ar your shovel here.";
+            }
+            else {
+                cout << "great! Here ya go!";
+                containedEntities.push_back(questList[1]->takeReward());
+            }
         }
     }
 }

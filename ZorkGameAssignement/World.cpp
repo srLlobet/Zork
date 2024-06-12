@@ -25,9 +25,9 @@ void World::setup() {
     auto gold = make_unique<Item>("gold vein", "A shiny material that would definitely fetch a great price on the surface. If you could mine it, you would make a fortune. But is this really the reason you came this far?");
     auto mythril = make_unique<Item>("mythril vein", "This... is definitely mythril, but it shouldn't be real. How does this exist and what is it doing down here?");
     auto water = make_unique<Item>("puddle of water", "It's water. Wet and refreshing");
-    auto ring = make_unique<Item>("Ring", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
-    auto necklace = make_unique<Item>("Necklace", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
-    auto pickaxe = make_unique<Item>("Pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
+    auto ring = make_unique<Item>("ring", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
+    auto necklace = make_unique<Item>("necklace", "A ring depicting the symbol of the depths.Part of an accessory collection. Getting all pieces might do something... ");
+    auto pickaxe = make_unique<Item>("pickaxe", "A sturdy pickaxe with a diamont point. No rock will resist the impact");
     
     auto statue = make_unique<Creature>("Statue of the Goddess", "A statue depicting the goddess of the depths. It looks like it could come alive at any moment. The goddess blesses those who attempt to reach the depths. Praying before a delve is a good idea.", temple);
     auto blacksmith = make_unique<Creature>("Dwarven blacksmith", "An old disheveled man of small stature is here. Hammer in hand, he forges piece after piece, with seemingly no purpouse at all. ", forge);
@@ -65,7 +65,7 @@ void World::setup() {
     abyss->setBelow(beyond);
     beyond->setAbove(abyss);
 
-
+    
     player = make_shared<Player>("Player", "The main character.", surface);
 
  

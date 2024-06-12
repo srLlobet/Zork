@@ -20,7 +20,7 @@ unique_ptr<Entity> Room::takeItem(const string& itemName) {
         });
 
     if (it != containedEntities.end()) {
-        unique_ptr<Entity> takenItem = std::move(*it); 
+        unique_ptr<Entity> takenItem = move(*it); 
         containedEntities.erase(it); 
         return takenItem;
     }
