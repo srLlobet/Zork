@@ -57,8 +57,7 @@ Happy adventuring!
 
 We'll begin by taking the shovel, then going down one level.
 
-***true ending note 01***
-take the talisman on the second level to get the true ending.
+take the talisman on the second level.
 
 we then go down 2 levels to the forge and talk to the blacksmith. He will allow us to pick up the pickaxe. He will also give us a quest.
 
