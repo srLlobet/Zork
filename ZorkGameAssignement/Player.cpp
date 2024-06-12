@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.h"
 
+//Player constructor
 Player::Player(const string& name, const string& description, shared_ptr<Room> room)
     : Creature(name, description, room){
     if (room) {
@@ -39,7 +40,7 @@ bool Player::ending()
 {
     return gameOver;
 }
-
+//movement and checks for certain items in inventory
 void Player::dig() {
     if (!findEntity("shovel") && !findEntity("copper shovel")) {
         cout << "Can't dig down without your trusted shovel!";
@@ -47,7 +48,7 @@ void Player::dig() {
     else {
         if (currentRoom->getName() == "The Forge - Depth 300m" && !findEntity("copper shovel")) {
             cout << "The ground is too tough for you to dig deeper. You should find a way to upgrade your shovel.";
-
+                //lambda function to search
                 auto it = find_if(questList.begin(), questList.end(), [&](const unique_ptr<Quest>& quest) {
                 return quest->getName() == "Reach for the depths!";
                     });
@@ -165,7 +166,7 @@ void Player::mine(const string& target) {
         }
     }
 }
-
+//handles the quest list
 void Player::printquest(const string& target) {
     if (target.empty()) {
         cout << "Quest: " << questList[0]->getName() << endl;
