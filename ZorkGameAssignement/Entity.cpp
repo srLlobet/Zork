@@ -13,7 +13,7 @@ const string& Entity::getName() const {
 const string& Entity::getDescription() const {
     return description;
 }
-
+//moves an entity from the source vector to destination vector
 void MoveEntity(unique_ptr<Entity>& entity, vector<unique_ptr<Entity>>& source, vector<unique_ptr<Entity>>& destination) {
     auto it = find_if(source.begin(), source.end(), [&entity](const unique_ptr<Entity>& ptr) {
         return ptr.get() == entity.get();
@@ -25,6 +25,7 @@ void MoveEntity(unique_ptr<Entity>& entity, vector<unique_ptr<Entity>>& source, 
     }
 }
 
+//finds an entity with a given name
 Entity* Entity::findEntity(const string& entityName) const {
     for (const auto& entity : containedEntities) {
         if (entity->getName() == entityName) {
