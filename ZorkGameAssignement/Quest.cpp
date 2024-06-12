@@ -2,6 +2,7 @@
 #include "Creature.h" 
 #include <iostream>
 
+//the quests points to the reward so that only the reward needs to be moved to the player
 Quest::Quest(const string& name, const string& description, unique_ptr<Entity> reward, unique_ptr<Quest> nextStep)
     : Entity(Entity::QUEST, name, description),
     reward(move(reward)),
