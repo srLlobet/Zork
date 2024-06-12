@@ -3,6 +3,7 @@
 
 #include<string>
 #include<memory>
+#include<iostream>
 
 #include"Room.h"
 #include"Quest.h"
@@ -16,10 +17,10 @@ public:
     ~Creature();
 
     void addQuest(unique_ptr<Quest> quest);
+    vector<unique_ptr<Quest>>& getQuestList();
 
 
-
-private:
+protected:
     vector<unique_ptr<Quest>>  questList;
     shared_ptr<Room> currentRoom;
     

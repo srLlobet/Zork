@@ -13,6 +13,7 @@ void Room::setItem(unique_ptr<Entity> setupItem) {
     containedEntities.push_back(move(setupItem));
 }
 
+
 unique_ptr<Entity> Room::takeItem(const string& itemName) {
     auto it = find_if(containedEntities.begin(), containedEntities.end(), [&](const unique_ptr<Entity>& item) {
         return item->getName() == itemName;

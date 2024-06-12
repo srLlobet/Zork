@@ -16,7 +16,7 @@ public:
 
     const vector<unique_ptr<Entity>>& getContainedEntities() const;
 
-    //getters & setters for pointers to the room above and below
+
     void setAbove(shared_ptr<Room> room);
     void setBelow(shared_ptr<Room> room);
     shared_ptr<Room> getAbove() const;

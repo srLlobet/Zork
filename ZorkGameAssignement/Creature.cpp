@@ -9,3 +9,8 @@ void Creature::addQuest(unique_ptr<Quest> quest) {
     questList.push_back(move(quest));
 }
 
+vector<unique_ptr<Quest>>& Creature::getQuestList()
+{
+    return questList;
+}
+

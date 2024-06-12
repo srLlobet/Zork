@@ -13,7 +13,7 @@ public:
 	Quest(const string& name,const string& description, unique_ptr<Item> reward, unique_ptr<Quest> nextStep);
 	~Quest();
 
-	void checkObjective();
+	void checkObjective(const string& objective);
 	void clearQuest();
 
 

@@ -17,7 +17,7 @@ void World::setup() {
     auto beyond = make_shared<Room>("??? - Depth -1", "yOu sHoUld NoT HAvE GoNE So DeEP");
 
 
-    auto shovel = make_unique<Item>("trusted shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
+    auto shovel = make_unique<Item>("shovel", "Your best friend and trusted partner. Whenever you wield it, a heavenly aura empowers and you feel like you could dig for hours through any material.");
     auto copperShovel = make_unique<Item>("copper shovel", "Your partner got an upgrade! You can now dig through the hardest of terrains.");
     auto bucket = make_unique<Item>("bucket", "An old metal bucket, it can be filled with liquids");
     auto talisman = make_unique<Item>("talisman", "A talisman depicting the symbol of the depths. Part of an accessory collection. Getting all pieces might do something... ");
@@ -34,7 +34,7 @@ void World::setup() {
     
     auto mainQuest3 = make_unique<Quest>("To the beyond!", "This is it! You've reached the bottom! Whenever you feel ready, plunge into the hole to find what you've been seeking all this time!", nullptr, nullptr);
     auto mainQuest2 = make_unique<Quest>("Reach for the depths! 2", "It seems like the ground is made of a much harder material. Your trusty old shovel might need an upgrade!", nullptr, move(mainQuest3));
-    auto mainQuest = make_unique<Quest>("Reach for the depths!", "You are finally here. Everyone back home said you were crazy, but none shall stop you any longer! Chase your dreams and delve on the darkest of depths to find out what lies beyond!", nullptr, move(mainQuest2));
+    auto mainQuest = make_unique<Quest>("Reach for the depths!", "You are finally here. Everyone back home said you were crazy, but none shall stop you any longer! Chase your dreams and delve through the darkest of depths to find out what lies beyond!", nullptr, move(mainQuest2));
 
     auto smithQuest2 = make_unique<Quest>("A blacksmith's plea", "This old blacksmith has spend eons down here trying to forge one of the godly accessories, but he's missing a crucial ore. Mythril. Find it and bring it to him.", move(ring), nullptr);
     auto smithQuest = make_unique<Quest>("Forge!", "The blacksmith has agreed to upgrade your shovel if you can give him some copper.", move(copperShovel), move(smithQuest2));
@@ -46,6 +46,7 @@ void World::setup() {
     cavern->setItem(move(copper));
     cavern->setItem(move(water));
     forge->setItem(move(bucket));
+    forge->setItem(move(pickaxe));
     magma->setItem(move(gold));
     abyss->setItem(move(mythril));
     
@@ -68,10 +69,12 @@ void World::setup() {
     player = make_shared<Player>("Player", "The main character.", surface);
 
  
-     
-     player->addQuest(move(mainQuest));
-     statue->addQuest(move(goldQuest));
-     blacksmith->addQuest(move(smithQuest));
+    player->addQuest(move(mainQuest));
+    player->addQuest(move(smithQuest));
+    player->addQuest(move(goldQuest));
+
+
+     forge->setItem(move(blacksmith));
     
 }
 
@@ -92,10 +95,10 @@ void World::processCommand(const string& command) {
     else if (action == "inventory" || action == "i") {
         player->inventory();
     }
-    else if (action == "dig") {
+    else if (action == "dig" || action == "d") {
         player->dig();
     }
-    else if (action == "climb") {
+    else if (action == "climb" || action == "c") {
         player->climb();
     }
     else if (action == "take") {
@@ -104,20 +107,16 @@ void World::processCommand(const string& command) {
     else if (action == "drop") {
         player->drop(target);
     }
-
-    /*else if (action == "pray") {
-        player->pray(target);
+    else if (action == "quest" || action == "quests" || action == "q") {
+        player->printquest(target);
     }
     else if (action == "talk") {
-        player->talk(target);
-    }
-    else if (action == "give") {
-        player->give(target);
+        player->talk(target);  
     }
     else if (action == "mine") {
         player->mine(target);
     }
-    */
+
     else {
         std::cout << "Unknown command: " << action << "\n";
     }

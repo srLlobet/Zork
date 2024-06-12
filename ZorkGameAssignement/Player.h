@@ -20,9 +20,8 @@ public:
 	void take(const string& target);
 	void drop(const string& target);
 	void mine(const string& target);
-
-	//void talk(const string& target);
-	void give(const string& target);
+	void talk(const string& target);
+	void printquest(const string& target);
 
 	shared_ptr<Room> getCurrentRoom() const {
 		return currentRoom;
@@ -30,6 +29,7 @@ public:
 
 
 private:
+	int blacksmithTalkCount = 0;
 	shared_ptr<Room> currentRoom;
 };
 
